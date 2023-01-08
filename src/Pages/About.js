@@ -1,55 +1,38 @@
-import { Grid, Typography } from "@mui/material";
-import { Container } from "@mui/system";
 import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
+import { Grid, Typography, Paper } from "@mui/material";
+import Img from "../Images/aboutus.jpg";
 
-export default function About({login}) {
+export default function About() {
   return (
     <div>
-      <Navbar showLoginButton={!login}/>
-      {/* <Grid container justify="center" padding={3} marginTop={3}> */}
-      <Container>
-      <Typography variant="h3" marginTop={5}>
-          About us:
-        </Typography>
+      <Navbar />      
+      <Grid container paddingTop={"120px"}>
+        <Grid item xs={4}>
         <Typography
-          width="100%"
-          align="center"
-          variant="p"
-          alignItems="center"
-          direction="column"
-        >
-          Payat campaigns make ideas into reality. It's where creators share new
-          visions for creative work with the communities that will come together
-          to fund them.
-          No matter what, creators always control how the work comes together—no
-          100-page grant applications, no donors demanding you modify your
-          message, no last-minute edits from investors. When backers chip in
-          funding and help spread the word, they too become part of these
-          independent works.
-        </Typography>
-        </Container>
-        <Container>
-          <Typography variant="h3" marginTop={5}>
-            Our community:
+              variant="h4"
+              style={{ paddingTop: "20px", padding: "10px" }}
+            >
+              About us
+            </Typography>
+          <Typography variant="h6"style={{ padding: "10px" }}>
+            This is the Final Year Project developed by Syed Abubakr, Faiez
+            Malik and Ahmad Ali. 
           </Typography>
-          <Typography
-            width="100%"
-            align="center"
-            variant="p"
-            alignItems="center"
-            direction="column"
-            justifyContent="center"
-          >
-            Tapping into our community starts with activating your own. Most
-            successful projects build a snowball effect, winning over friends
-            and early supporters who then share the idea with their networks,
-            and signal their support to the wider Kickstarter community. The
-            snowball can get pretty big. Over 22 million people, from every
-            continent on earth, have helped fund Kickstarter projects.
+          <Typography variant="h6"style={{paddingTop: "0", padding: "10px" }}>
+            The app provides the service of making the process of trash detection automated by using technologies like machine learning, Blockchain etc.
           </Typography>
-        </Container>
-      {/* </Grid> */}
+        </Grid>
+        <Grid item xs={8}>
+          <center>
+            <img
+              src={Img}
+              style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "fill" }}
+            />            
+          </center>
+        </Grid>
+      </Grid>
+      {/* </center> */}
     </div>
   );
 }

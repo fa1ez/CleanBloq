@@ -1,17 +1,40 @@
-import { fontSize } from "@mui/system";
 import React from "react";
-import Navbar from "../components/Navbar";
-import Img from "../Imgs/img2.jpeg"
+import Navbar from "../Components/Navbar";
+import { Typography, Grid } from "@mui/material";
 
-export default function Home({ login }) {
+export default function Home() {
+
   return (
     <div>
-      <Navbar showLoginButton={!login} />
-      <img src={Img} width="100%" />
-      <h1 style={{ position: "absolute", top: "80px", right: "0", color:"white", fontSize:"220px"}}>
-        Welcome!
-      </h1>
-      <p style={{ position: "absolute", top: "450px", right: "0", color:"white", fontSize:"30px", textAlign:"right"}}>Bring a Creative Project to life by enabling the connection between the provider and organizations. Transfer funds to your favourite projects which are supported by cryptocurrencies</p>
+      <Navbar />
+      <center>
+        <Typography
+          variant="h1"
+          style={{ paddingTop: "100px", padding: "10px" }}
+        >
+          CleanBloq
+        </Typography>
+        <Grid container>
+          <Grid item xs={4}>
+            <div className="count" style={{ paddingTop: "50px" }}>
+              69
+            </div>
+            <Typography variant="h5">Detections made</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="countResolved" style={{ paddingTop: "50px" }}>
+              60
+            </div>
+            <Typography variant="h5">Resolved</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <div className="countUnResolved" style={{ paddingTop: "50px" }}>
+              9
+            </div>
+            <Typography variant="h5">Unresolved</Typography>
+          </Grid>
+        </Grid>
+      </center>
     </div>
   );
 }
