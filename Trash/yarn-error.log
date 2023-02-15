@@ -1,0 +1,84 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\ahmed\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-chartjs-2 chart.js
+
+PATH: 
+  C:\Program Files\nodejs;C:\Users\ahmed\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\ahmed\AppData\Local\Programs\Python\Python311\;C:\Users\ahmed\AppData\Local\Microsoft\WindowsApps;;C:\Users\ahmed\AppData\Local\Programs\Microsoft VS Code\bin;D:\PyCharm Community Edition 2022.2.3\bin;;C:\Users\ahmed\go\bin;C:\Users\ahmed\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.12.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\Users\ahmed\OneDrive\Documents\Trash_Detection_System\Trash_Detection\Trash\node_modules\bufferutil\prebuilds\win32-x64\node.napi.node'
+
+npm manifest: 
+  {
+    "name": "payat",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+      "@emotion/react": "^11.10.5",
+      "@emotion/styled": "^11.10.5",
+      "@ensdomains/address-encoder": "^0.2.18",
+      "@fontsource/roboto": "^4.5.8",
+      "@metamask/detect-provider": "^2.0.0",
+      "@mui/icons-material": "^5.10.16",
+      "@mui/material": "^5.10.16",
+      "@testing-library/jest-dom": "^5.16.5",
+      "@testing-library/react": "^13.4.0",
+      "@testing-library/user-event": "^13.5.0",
+      "@truffle/contract": "^4.6.10",
+      "aos": "^2.3.4",
+      "chart.js": "^4.1.2",
+      "chartjs": "^0.3.24",
+      "crypto-browserify": "^3.12.0",
+      "react": "^18.2.0",
+      "react-chartjs-2": "^5.1.0",
+      "react-dom": "^18.2.0",
+      "react-router-dom": "^6.4.3",
+      "react-scripts": "^4.0.3",
+      "state-pool": "^0.9.0",
+      "stream": "^0.0.2",
+      "web-vitals": "^2.1.4"
+    },
+    "scripts": {
+      "start": "react-scripts --openssl-legacy-provider start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+      "extends": [
+        "react-app",
+        "react-app/jest"
+      ]
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    },
+    "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+    "main": "index.js",
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
