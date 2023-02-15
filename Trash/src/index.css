@@ -1,0 +1,134 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background-image: linear-gradient(130deg, #00FFFF	, #506DB9, #3E5599, #314284, #363378, #352E74		); */
+  /* background-color: #020322; */
+  background-color: #03243D;
+  color:white
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.Container {
+  /* background-color: grey; */
+  width: 75%;
+  margin: auto;
+  padding: 10px;
+  min-height: auto;
+  position: relative;
+  height: fit-content;
+}
+
+.PostsContainer {
+  background-color: lightgrey;
+  min-height: 100px;
+  width: 300px;
+  align-items: center;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 15px;
+  position: relative;
+  float: left;
+  text-overflow: ellipsis;
+  /* animation-duration: 5ms; */
+  transition: 0.25s;
+  /* animation: ease-in-out; */
+  box-shadow: 0px 0px 15px -5px;
+  cursor: pointer;
+}
+
+.PostsContainer:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 15px 0px;
+}
+
+p {
+  color: black;
+  font-family: open sans-serif;
+  word-wrap: break-word;
+  font-size: large;
+  margin: 5px;
+}
+
+.buttonDiv {
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+}
+
+.moreButton :hover {
+  background-color: black;
+  color: white;
+}
+
+.header {
+  background-color: black;
+  position: relative;
+  margin-top: 0;
+  height: 100px;
+  color: white;
+  font-size: xx-large;
+  justify-content: center;
+}
+
+::-webkit-scrollbar{
+  width: 0.5rem;
+  height:2rem;
+}
+
+::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: darkgray;
+  border-radius: 10rem;
+}
+
+.count{
+    font-size: 150px;
+    color: #eee;
+    text-transform: capitalize;
+    background: linear-gradient(-45deg, #000000, #e73c6f, #2394d5, #2af3b7);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-stroke: 8px transparent;
+}
+
+.countResolved{
+  font-size: 150px;
+  color: #eee;
+  text-transform: capitalize;
+  background: linear-gradient(80deg, #000000, #00ff00, #2394d5, #2af3b7);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 8px transparent;
+}
+
+.countUnResolved{
+  font-size: 150px;
+  color: #eee;
+  text-transform: capitalize;
+  background: linear-gradient(80deg, #000000, #e73c6f, #2394d5, #2af3b7);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 8px transparent;
+}
+
+.PageTitle{
+  font-size: 120px;
+  font-weight: 600;
+  /* background-image: linear-gradient(to left, #ffffff, #000000); */
+  background-color: white;
+  font-family: 'Times New Roman', Times, serif;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
