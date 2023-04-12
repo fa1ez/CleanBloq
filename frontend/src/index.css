@@ -10,6 +10,15 @@ body {
   background-color: #03243D;
   color:white
 }
+.count1{
+  font-size: 150px;
+  color: #eee;
+  text-transform: capitalize;
+  background: linear-gradient(-45deg, #000000, #e73c6f, #2394d5, #2af3b7);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 5px transparent;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -93,13 +102,13 @@ p {
 }
 
 .count{
-    font-size: 150px;
+    font-size: 80px;
     color: #eee;
     text-transform: capitalize;
     background: linear-gradient(-45deg, #000000, #e73c6f, #2394d5, #2af3b7);
     background-size: 200% 200%;
     -webkit-background-clip: text;
-    -webkit-text-stroke: 8px transparent;
+    -webkit-text-stroke: 5px transparent;
 }
 
 .countResolved{

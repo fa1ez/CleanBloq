@@ -23,7 +23,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function LocationCard({ frequency, City, Longitude, Latitude, choosefilename , Get_Resolve}) {
+export default function LocationCard({ frequency, City, Longitude, Latitude, choosefilename , Get_Resolve,day}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -52,7 +52,7 @@ export default function LocationCard({ frequency, City, Longitude, Latitude, cho
         sx={{ cursor: "pointer" }}
       ></CardHeader>
       <CardActions disableSpacing>
-        <ColorButton variant="contained" onClick={()=>{Get_Resolve(City, Longitude, Latitude,frequency)}}>Resolve</ColorButton>
+        <ColorButton variant="contained" onClick={()=>{Get_Resolve(frequency, City, Longitude, Latitude,day)}}>Resolve</ColorButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

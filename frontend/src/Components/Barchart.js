@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 
 export default function Barchart({ cities }) {
+  console.log("Cities ", cities);
   const getcount = () => {
     const ct = cities
       .map((item) => item.city)

@@ -12,7 +12,7 @@ export default function LocationList() {
   const [locations, setData] = useState([]);
   const [detected, setdetection] = useState(true);
 
-  // if (Loc_Data.length > 0) {
+  // if (Json_Data.length > 0) {
   //   setdetection(true);
   // }
 
@@ -20,7 +20,7 @@ export default function LocationList() {
     contract: null,
   });
 
-  const initverify = window.localStorage.getItem("verify_state") || true;
+  const initverify = window.localStorage.getItem("verify_state") || false;
   const [verify, setverify] = useState(initverify);
 
   useEffect(() => {
@@ -38,13 +38,13 @@ export default function LocationList() {
   }, []);
 
   async function show_locations(val) {
-    console.log("Val is ", val);
     const dict = {
       id: "",
       longitude: "",
       latitude: "",
       city: "",
       day: "",
+      time :""
     };
     dict["id"] = val[0];
     dict["frequency"] = val[1];
@@ -52,9 +52,9 @@ export default function LocationList() {
     dict["latitude"] = val[3];
     dict["city"] = val[4];
     dict["day"] = val[5];
-
+    dict["time"] = val[6];
+  
     setData((locations) => [...locations, dict]);
-    console.log("LOCATIONS ARE " , locations);
   }
 
   const Show_Project = async () => {
@@ -83,14 +83,15 @@ export default function LocationList() {
     const accounts = await web3.eth.getAccounts();
 
     const private_key =
-      "0x360c0bb1739d75c052271b680b1902490c50f6b3b34de7431792f1bf8ed3862f";
+      "c4b9c71a156d3dfad333bd70506d16c4730d4420d83124d0cff4a6844d856c0a";
     let abi;
+
     for (let i = 0; i < id_arr.length; i++) {
       if (
         // id_arr[i].id === id &&
         id_arr[i].longitude === Longitude &&
         id_arr[i].latitude === Latitude &&
-        id_arr[i].city === City 
+        id_arr[i].city === City
         // id_arr[i].day === day
       ) {
         await contract
@@ -109,48 +110,53 @@ export default function LocationList() {
       data: abi.tx,
     };
     await web3.eth.accounts.signTransaction(tx, private_key);
-
     Show_Project();
   };
-  const Verify_Data = async (id, long, lat, city, day,frequency) => {
+  const Verify_Data = async (id, long, lat, city, day, frequency,time) => {
     var id_arr = null;
     const { contract } = web3Api;
+    const web3 = new Web3("HTTP://127.0.0.1:7545");
+    const accounts = await web3.eth.getAccounts();
     await contract.Get_locations_Unresolved().then(function (resp) {
       id_arr = resp;
     });
-
     let local = false;
     for (let i = 0; i < id_arr.length; i++) {
       if (
         // Number(id_arr[i].id) === id &&
         id_arr[i].longitude === long &&
         id_arr[i].latitude === lat &&
-        id_arr[i].city === city 
+        id_arr[i].city === city
         // id_arr[i].day === day
       ) {
+        await contract
+          .update_frequency(long, lat, city, { from: accounts[2] })
+          .then(function (resp) {
+            console.log("updated ");
+          });
         setverify(false);
         local = true;
       }
     }
-    console.log("verify " , verify);
     if (local == false) {
       setverify(true);
     }
   };
 
-  const send = async (id, long, lat, city, day,frequency) => {
+  const send = async (id, long, lat, city, day, frequency,time) => {
     if (verify === true) {
       setdetection(false);
       const { contract } = web3Api;
       const web3 = new Web3("HTTP://127.0.0.1:7545");
       const accounts = await web3.eth.getAccounts();
-
       const private_key =
-        "0x360c0bb1739d75c052271b680b1902490c50f6b3b34de7431792f1bf8ed3862f";
+        "c4b9c71a156d3dfad333bd70506d16c4730d4420d83124d0cff4a6844d856c0a";
       var abi;
 
       await contract
-        .Location_Add(id, long, lat, city, day, frequency,{ from: accounts[2] })
+        .Location_Add(id, long, lat, city, day, frequency,time, {
+          from: accounts[2],
+        })
         .then(function (resp) {
           abi = resp;
         });
@@ -164,10 +170,10 @@ export default function LocationList() {
       await web3.eth.accounts.signTransaction(tx, private_key);
     }
   };
-
-  if (detected === true) {
-    let id ="1";
-    let day = "edih";
+  
+  if (detected === true ) {
+    console.log("Called.. ");
+    let id = "1";
     const { contract } = web3Api;
     Json_Data.map((Loc_Data) => {
       contract &&
@@ -176,18 +182,19 @@ export default function LocationList() {
           Loc_Data.longitude,
           Loc_Data.latitude,
           Loc_Data.city,
-          day,
-          Loc_Data.frequency
+          Loc_Data.day,
+          Loc_Data.frequency,
+          Loc_Data.time
         );
-
       contract &&
         send(
           id,
           Loc_Data.longitude,
           Loc_Data.latitude,
           Loc_Data.city,
-          day,
-          Loc_Data.frequency
+          Loc_Data.day,
+          Loc_Data.frequency,
+          Loc_Data.time
         );
     });
   }
@@ -216,7 +223,7 @@ export default function LocationList() {
               {locations.map((post) => (
                 <Grid item xs={12} md={12} lg={12}>
                   <CandidatePost
-                    id={post.id}
+                    frequency={post.frequency}
                     City={post.city}
                     Longitude={post.longitude}
                     Latitude={post.latitude}

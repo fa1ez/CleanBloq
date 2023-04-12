@@ -4,11 +4,15 @@ import numpy
 import cv2
 from time import time
 import json
-from urllib.request import urlopen
 import os
 import os.path
-
-
+import time as t
+from selenium.webdriver.chrome.service import Service
+from selenium import webdriver 
+from selenium.webdriver.chrome.options import Options 
+from selenium.webdriver.common.by import By
+from geopy.geocoders import Nominatim
+from datetime import datetime
 
 class TrashDetection:
     # Class implements Yolo5 model to make inferences on footage from Camera
@@ -40,7 +44,7 @@ class TrashDetection:
         """
         if model_name:
             model = torch.hub.load(
-                'ultralytics/yolov5', 'custom', path=model_name, force_reload=True)
+                'ultralytics/yolov5', 'custom', path=model_name, force_reload=False)
         else:
             model = torch.hub.load('ultralytics/yolov5',
                                    'yolov5s', pretrained=True)
@@ -66,22 +70,51 @@ class TrashDetection:
         """
         return self.classes[int(x)]
     
+    def getCity(self,latitude, longitude):
+        geolocator = Nominatim(user_agent="my_geocoder")
+        # Reverse geocode the coordinates to get the city name
+        location = geolocator.reverse(f"{latitude}, {longitude}", language='en')
+        address = location.raw['address']
+        city = address.get('city', '')
+        # print(f"City: {city}")
+        return city
+
     def getLocation(self):
+        options = Options()
+        options.add_argument("--use--fake-ui-for-media-stream")
+        service = Service('./chromedriver.exe') # Edit path of chromedriver accordingly
+        driver = webdriver.Chrome(service=service, options=options)
+
+        driver.get("https://www.gps-coordinates.net/my-location")
+        t.sleep(5)
+        longitude = driver.find_element(By.ID, 'lng').text.split("/")[0]
+        latitude = driver.find_element(By.ID, 'lat').text.split("/")[0]
+        driver.quit()    
+        return (latitude,longitude)
+    
+    def getTime(self):
+        today = datetime.now()
+        current_day = today.day
+        
+
+    def writeLocation(self):
         location = {
             "latitude": 0,
             "longitude": 0,
             "frequency": 1,
-            "city": "Null"
+            "city": "Null",
+            "day":"Null",
+            "time":"Null",
         }
-        url = "http://ipinfo.io/json"
-        response = urlopen(url)
-        data = json.load(response)
-        city = data["city"]
-        latitude, longitude = data["loc"].split(",")
+        latitude, longitude = self.getLocation()
+
         location["latitude"] = latitude
         location["longitude"] = longitude
-        location["city"] = city
-        # print("Current Object:", location)
+        location["city"] = self.getCity(latitude, longitude)
+        # Get the current date
+        today = datetime.now()
+        location['day'] = today.strftime("%A")  # Extract the day from the current date
+        location['time'] = today.strftime("%H:%M:%S")   # Format the current time as "HH:MM:SS"
         
         # Open the JSON file and load its contents
         with open('../frontend/src/Components/locations.json', 'r') as f:
@@ -109,6 +142,13 @@ class TrashDetection:
                 json.dump(data, f, indent=4)
                 # print("\n Data dumped:", data)
         return location
+    
+    def screenshot(self, latitude, longitude, frame):
+        # the format for storing the images scrreenshotted
+        img_name = f'./screenshots/{latitude}+{longitude}.png'
+        # saves the image as a png file
+        cv2.imwrite(img_name, frame)
+        print('screenshot taken')
 
     def plot_boxes(self, results, frame):
         """
@@ -122,7 +162,7 @@ class TrashDetection:
         x_shape, y_shape = frame.shape[1], frame.shape[0]
         for i in range(n):
             row = cord[i]
-            if row[4] >= 0.3:
+            if row[4] >= 0.3: #if certainty is 0.3
                 x1, y1, x2, y2 = int(
                     row[0]*x_shape), int(row[1]*y_shape), int(row[2]*x_shape), int(row[3]*y_shape)
                 bgr = (0, 255, 0)
@@ -130,7 +170,12 @@ class TrashDetection:
                 cv2.putText(frame, self.class_to_label(
                     labels[i]), (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 0.9, bgr, 2)
                 # print location when detection is made
-                print(self.getLocation())
+                location = self.writeLocation()
+                print(location)
+                #take screenshot
+                self.screenshot(location['latitude'],location['longitude'],frame)
+
+
 
         return frame
 

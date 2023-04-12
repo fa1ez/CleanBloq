@@ -64,7 +64,7 @@ export default function Home() {
         </Typography>
         <Grid container>
           <Grid item xs={4}>
-            <div className="count" style={{ paddingTop: "50px" }}>
+            <div className="count1" style={{ paddingTop: "50px" }}>
               {detections}
             </div>
             <Typography variant="h5">Detections made</Typography>

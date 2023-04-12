@@ -1,14 +1,14 @@
 import React from "react";
 import { Chart, Line } from "react-chartjs-2";
 import { useState, useEffect } from "react";
-import { Chart as ChartJS } from "chart.js/auto";
+// import { Chart as ChartJS } from "chart.js/auto";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-ChartJS.defaults.color = "white";
+// ChartJS.defaults.color = "white";
 
 export default function Linechart_daily({ cities }) {
   //handle multuple city data
@@ -23,6 +23,7 @@ export default function Linechart_daily({ cities }) {
     const array = [...Array(24).keys()].map((i) => 0);
     const filtered = cities.filter((ct) => ct.city === City);
     const str = filtered.map((ct) => {
+      console.log("City ",ct);
       return parseInt(ct.time.slice(0, 2));
     });
     str.map((time) => (array[time] = array[time] + 1));
@@ -126,7 +127,7 @@ export default function Linechart_daily({ cities }) {
             }}
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">City</InputLabel>
+              <InputLabel id="demo-simple-select-label"></InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"

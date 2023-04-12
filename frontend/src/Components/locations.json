@@ -1,8 +1,10 @@
 [
     {
-        "latitude": "37.7749",
-        "longitude": "-122.4194",
+        "latitude": "30.682227 ",
+        "longitude": "73.997274 ",
         "frequency": 1,
-        "city": "Gujrat"
+        "city": "Karachi",
+        "day": "Thursday",
+        "time": "00:12:34"
     }
 ]

@@ -8,6 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 export default function DateChart({ chartData }) {
+  console.log("Chartjs ", chartData);
   const a = chartData[0].city;
   const [City, setCity] = useState(a);
   const handleChange = (event) => {
@@ -132,7 +133,7 @@ export default function DateChart({ chartData }) {
             }}
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">City</InputLabel>
+              <InputLabel id="demo-simple-select-label"></InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"

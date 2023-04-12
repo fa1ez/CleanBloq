@@ -50,6 +50,7 @@ export default function BasicTable() {
       await contract.Get_locations_resolved().then(function (resp) {
         id_var = resp;
       });
+      console.log("Id var ",id_var);
       id_var.map(show_locations);
     };
     contract && get_solved(contract);

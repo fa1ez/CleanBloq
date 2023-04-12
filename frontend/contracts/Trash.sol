@@ -9,20 +9,38 @@ contract Trash {
         string latitude;
         string city;
         string day;
+        string time;
     }
     mapping(address => location_detail[]) public Data;
     location_detail[] all_loc_Unresolved;
     location_detail[] all_loc_resolved;
     location_detail[] all_loc;
 
+    function update_frequency(string memory longitude,
+        string memory latitude,
+        string memory city) external {
+            for (uint i = 0; i < all_loc_Unresolved.length; i++) {
+            if (
+                keccak256(abi.encodePacked((all_loc_Unresolved[i].longitude))) ==
+                keccak256(abi.encodePacked((longitude))) &&
+                keccak256(abi.encodePacked((all_loc_Unresolved[i].latitude))) ==
+                keccak256(abi.encodePacked((latitude))) &&
+                keccak256(abi.encodePacked((all_loc_Unresolved[i].city))) ==
+                keccak256(abi.encodePacked((city)))
+            ) {
+                all_loc_Unresolved[i].frequency += 1;
+            }
+        }
 
+    }
     function Location_Add(
         uint id,
         string memory longitude,
         string memory latitude,
         string memory city,
         string memory day,
-        uint frequency
+        uint frequency,
+        string memory time
     ) external {
         location_detail memory d;
         d.id = id;
@@ -31,6 +49,7 @@ contract Trash {
         d.city = city;
         d.day = day;
         d.frequency = frequency;
+        d.time = time;
         // Data[msg.sender].push(d);
         all_loc_Unresolved.push(d);
         all_loc.push(d);
@@ -53,7 +72,6 @@ contract Trash {
     ) public {
         for (uint i = 0; i < all_loc_Unresolved.length; i++) {
             if (
-                all_loc_Unresolved[i].id ==  id && 
                 keccak256(abi.encodePacked((all_loc_Unresolved[i].longitude))) ==
                 keccak256(abi.encodePacked((long))) &&
                 keccak256(abi.encodePacked((all_loc_Unresolved[i].latitude))) ==
